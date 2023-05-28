@@ -5,3 +5,33 @@
 Затем пользователь вводит сами элементы множеств.
 
 '''
+import random
+
+def read_int(text):
+    while(True):
+        try:
+            #Ввод пытаемся преобразовать в число с плавающей точкой, на случай если ввели не целое число
+            readInt = float(input(text))
+        #Если при преобразовании в float возникло исключение, выводим ошибку и завершаем иттерацию цикла while
+        except:
+            print('Введено не число!')
+            continue
+        #Если попали сюда, значит всё нормально, проверяем равны ли числа типа float и преобразованное в int(откинули дробную часть если она была)
+        if  int(readInt) == readInt:
+            if readInt > 0:
+                return int(readInt)
+            else:
+                print('Число должно быть, больше нуля!')
+        else:
+            print('Число должно быть, целым!')
+
+
+# используем list comprehension из лекции для генерации списка со случайными числами
+array_1 = [random.randint(0,10) for x in range(read_int("Введите кол-во элементов массива 1:"))]
+print(array_1)
+
+array_2 = [random.randint(0,10) for x in range(read_int("Введите кол-во элементов массива 2:"))]
+print(array_2)
+
+# Используем set для преобразования в множества, тогда сможем использовать объединение union
+print(sorted(set(array_1).union(set(array_2))))
