@@ -7,3 +7,36 @@
 Напишите программу для нахождения максимального числа ягод, которое может собрать за один заход собирающий модуль, 
 находясь перед некоторым кустом заданной во входном файле грядки.
 '''
+import random 
+
+def read_int(text):
+    while(True):
+        try:
+            #Ввод пытаемся преобразовать в число с плавающей точкой, на случай если ввели не целое число
+            readInt = float(input(text))
+        #Если при преобразовании в float возникло исключение, выводим ошибку и завершаем итерацию цикла while
+        except:
+            print('Введено не число!')
+            continue
+        #Если попали сюда, значит всё нормально, проверяем равны ли числа типа float и преобразованное в int(откинули дробную часть если она была)
+        if  int(readInt) == readInt:
+            if readInt > 2:
+                return int(readInt)
+            else:
+                print('Число должно быть, больше двух!')
+        else:
+            print('Число должно быть, целым!')
+
+
+# используем list comprehension из лекции для генерации списка со случайными числами
+N = read_int("Введите кол-во кустов:")
+array = [random.randint(0,50) for x in range(N)]
+print(array)
+
+max_berrys = 0
+
+for i in range(N):
+    sum = array[i-1] + array[i] + array[i+1 if i+1 < N else 0]
+    if(sum > max_berrys):
+        max_berrys = sum
+print(max_berrys)
